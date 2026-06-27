@@ -1,0 +1,387 @@
+openapi: 3.0.3
+info:
+  title: KuroPanel API
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000/api
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password, name]
+              properties:
+                email: {type: string, example: admin@kuropanel.com}
+                password: {type: string, example: admin123}
+                name: {type: string, example: Admin}
+      responses: {200: {description: OK}}
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: {type: string, example: admin@kuropanel.com}
+                password: {type: string, example: admin123}
+      responses: {200: {description: OK}}
+
+  /auth/me:
+    get:
+      tags: [Auth]
+      summary: Get current user
+      security: [{bearerAuth: []}]
+      responses: {200: {description: OK}}
+
+  /nodes:
+    get:
+      tags: [Nodes]
+      summary: List nodes
+      security: [{bearerAuth: []}]
+      responses: {200: {description: OK}}
+    post:
+      tags: [Nodes]
+      summary: Create node
+      security: [{bearerAuth: []}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, hostname]
+              properties:
+                name: {type: string, example: Prod-01}
+                hostname: {type: string, example: server-01}
+      responses: {200: {description: OK}}
+
+  /nodes/{id}:
+    get:
+      tags: [Nodes]
+      summary: Get node
+      security: [{bearerAuth: []}]
+      parameters: [{name: id, in: path, required: true, schema: {type: string}}]
+      responses: {200: {description: OK}}
+    put:
+      tags: [Nodes]
+      summary: Update node
+      security: [{bearerAuth: []}]
+      parameters: [{name: id, in: path, required: true, schema: {type: string}}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: {type: string}
+                hostname: {type: string}
+      responses: {200: {description: OK}}
+    delete:
+      tags: [Nodes]
+      summary: Delete node
+      security: [{bearerAuth: []}]
+      parameters: [{name: id, in: path, required: true, schema: {type: string}}]
+      responses: {200: {description: OK}}
+
+  /nodes/{id}/stats:
+    get:
+      tags: [Nodes]
+      summary: Node stats
+      security: [{bearerAuth: []}]
+      parameters: [{name: id, in: path, required: true, schema: {type: string}}]
+      responses: {200: {description: OK}}
+
+  /nodes/{id}/regenerate:
+    post:
+      tags: [Nodes]
+      summary: Regenerate token
+      security: [{bearerAuth: []}]
+      parameters: [{name: id, in: path, required: true, schema: {type: string}}]
+      responses: {200: {description: OK}}
+
+  /tasks:
+    get:
+      tags: [Tasks]
+      summary: List tasks
+      security: [{bearerAuth: []}]
+      responses: {200: {description: OK}}
+    delete:
+      tags: [Tasks]
+      summary: Clear completed
+      security: [{bearerAuth: []}]
+      responses: {200: {description: OK}}
+
+  /tasks/node/{nodeId}:
+    get:
+      tags: [Tasks]
+      summary: List tasks by node
+      security: [{bearerAuth: []}]
+      parameters: [{name: nodeId, in: path, required: true, schema: {type: string}}]
+      responses: {200: {description: OK}}
+    post:
+      tags: [Tasks]
+      summary: Create task
+      security: [{bearerAuth: []}]
+      parameters: [{name: nodeId, in: path, required: true, schema: {type: string}}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [type, params]
+              properties:
+                type: {type: string, enum: [command, script, docker, file]}
+                target: {type: string, example: localhost}
+                params: {type: object}
+      responses: {200: {description: OK}}
+
+  /tasks/{id}:
+    get:
+      tags: [Tasks]
+      summary: Get task
+      security: [{bearerAuth: []}]
+      parameters: [{name: id, in: path, required: true, schema: {type: string}}]
+      responses: {200: {description: OK}}
+    delete:
+      tags: [Tasks]
+      summary: Delete task
+      security: [{bearerAuth: []}]
+      parameters: [{name: id, in: path, required: true, schema: {type: string}}]
+      responses: {200: {description: OK}}
+
+  /tasks/{id}/retry:
+    post:
+      tags: [Tasks]
+      summary: Retry task
+      security: [{bearerAuth: []}]
+      parameters: [{name: id, in: path, required: true, schema: {type: string}}]
+      responses: {200: {description: OK}}
+
+  /files/list/{nodeId}:
+    get:
+      tags: [Files]
+      summary: List files
+      security: [{bearerAuth: []}]
+      parameters:
+        - {name: nodeId, in: path, required: true, schema: {type: string}}
+        - {name: path, in: query, schema: {type: string, default: /}}
+      responses: {200: {description: OK}}
+
+  /files/content/{nodeId}:
+    get:
+      tags: [Files]
+      summary: Get file content
+      security: [{bearerAuth: []}]
+      parameters:
+        - {name: nodeId, in: path, required: true, schema: {type: string}}
+        - {name: path, in: query, required: true, schema: {type: string}}
+      responses: {200: {description: OK}}
+
+  /files/save/{nodeId}:
+    post:
+      tags: [Files]
+      summary: Save file
+      security: [{bearerAuth: []}]
+      parameters: [{name: nodeId, in: path, required: true, schema: {type: string}}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [path, content]
+              properties:
+                path: {type: string}
+                content: {type: string}
+      responses: {200: {description: OK}}
+
+  /files/create/{nodeId}:
+    post:
+      tags: [Files]
+      summary: Create file/folder
+      security: [{bearerAuth: []}]
+      parameters: [{name: nodeId, in: path, required: true, schema: {type: string}}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                path: {type: string, default: /}
+                name: {type: string}
+                isDir: {type: boolean, default: false}
+      responses: {200: {description: OK}}
+
+  /files/delete/{nodeId}:
+    delete:
+      tags: [Files]
+      summary: Delete file/folder
+      security: [{bearerAuth: []}]
+      parameters:
+        - {name: nodeId, in: path, required: true, schema: {type: string}}
+        - {name: path, in: query, required: true, schema: {type: string}}
+      responses: {200: {description: OK}}
+
+  /files/rename/{nodeId}:
+    put:
+      tags: [Files]
+      summary: Rename file/folder
+      security: [{bearerAuth: []}]
+      parameters: [{name: nodeId, in: path, required: true, schema: {type: string}}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [oldPath, newName]
+              properties:
+                oldPath: {type: string}
+                newName: {type: string}
+      responses: {200: {description: OK}}
+
+  /files/upload/{nodeId}:
+    post:
+      tags: [Files]
+      summary: Upload file
+      security: [{bearerAuth: []}]
+      parameters:
+        - {name: nodeId, in: path, required: true, schema: {type: string}}
+        - {name: path, in: query, schema: {type: string, default: /}}
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file: {type: string, format: binary}
+      responses: {200: {description: OK}}
+
+  /files/download/{nodeId}:
+    get:
+      tags: [Files]
+      summary: Download file
+      security: [{bearerAuth: []}]
+      parameters:
+        - {name: nodeId, in: path, required: true, schema: {type: string}}
+        - {name: path, in: query, required: true, schema: {type: string}}
+      responses: {200: {description: OK, content: {'application/octet-stream': {schema: {type: string, format: binary}}}}}
+
+  /files/chmod/{nodeId}:
+    post:
+      tags: [Files]
+      summary: Change permission
+      security: [{bearerAuth: []}]
+      parameters: [{name: nodeId, in: path, required: true, schema: {type: string}}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [path, perm]
+              properties:
+                path: {type: string}
+                perm: {type: string, example: "644"}
+      responses: {200: {description: OK}}
+
+  /files/zip/{nodeId}:
+    post:
+      tags: [Files]
+      summary: Zip folder
+      security: [{bearerAuth: []}]
+      parameters: [{name: nodeId, in: path, required: true, schema: {type: string}}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [path, name]
+              properties:
+                path: {type: string}
+                name: {type: string}
+      responses: {200: {description: OK}}
+
+  /files/unzip/{nodeId}:
+    post:
+      tags: [Files]
+      summary: Unzip file
+      security: [{bearerAuth: []}]
+      parameters: [{name: nodeId, in: path, required: true, schema: {type: string}}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [path]
+              properties:
+                path: {type: string}
+      responses: {200: {description: OK}}
+
+  /dashboard/stats:
+    get:
+      tags: [Dashboard]
+      summary: Dashboard stats
+      security: [{bearerAuth: []}]
+      responses: {200: {description: OK}}
+
+  /dashboard/recent:
+    get:
+      tags: [Dashboard]
+      summary: Recent tasks
+      security: [{bearerAuth: []}]
+      parameters: [{name: limit, in: query, schema: {type: integer, default: 10}}]
+      responses: {200: {description: OK}}
+
+  /dashboard/nodes/status:
+    get:
+      tags: [Dashboard]
+      summary: Node status summary
+      security: [{bearerAuth: []}]
+      responses: {200: {description: OK}}
+
+  /admin/users:
+    get:
+      tags: [Admin]
+      summary: List users (admin only)
+      security: [{bearerAuth: []}]
+      responses: {200: {description: OK}}
+
+  /admin/stats:
+    get:
+      tags: [Admin]
+      summary: Admin stats
+      security: [{bearerAuth: []}]
+      responses: {200: {description: OK}}
+
+  /health:
+    get:
+      tags: [System]
+      summary: Health check
+      responses: {200: {description: OK}}

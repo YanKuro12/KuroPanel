@@ -1,0 +1,18 @@
+FROM golang:1.25-alpine AS builder
+
+WORKDIR /app
+
+COPY backend/go.mod backend/go.sum ./
+RUN go mod download
+
+COPY backend/ .
+RUN go build -o kuropanel ./cmd/server
+
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+COPY --from=builder /app/kuropanel .
+COPY --from=builder /app/.env ./.env
+
+EXPOSE 5000
+CMD ["./kuropanel"]
