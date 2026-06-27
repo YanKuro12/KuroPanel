@@ -6,8 +6,8 @@ import (
     "time"
     "github.com/gofiber/fiber/v2"
     "github.com/gofiber/websocket/v2"
-    "github.com/kuropanel/backend/internal/database"
-    "github.com/kuropanel/backend/internal/games"
+    "github.com/yankuro12/kuropanel/backend/internal/database"
+    "github.com/yankuro12/kuropanel/backend/internal/games"
 )
 
 var connections = make(map[string]*websocket.Conn)

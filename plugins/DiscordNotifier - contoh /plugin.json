@@ -1,0 +1,21 @@
+{
+    "name": "DiscordNotifier",
+    "version": "1.0.0",
+    "author": "KuroDev",
+    "description": "Send notifications to Discord",
+    "main": "main.so",
+    "entrypoint": "Plugin",
+    "permissions": ["webhook", "http"],
+    "hooks": {
+        "onTaskComplete": true,
+        "onNodeOffline": true,
+        "onGameStart": false,
+        "onBackup": false,
+        "onNodeOnline": false,
+        "onTaskFailed": false
+    },
+    "enabled": true,
+    "config": {
+        "webhook": ""
+    }
+}

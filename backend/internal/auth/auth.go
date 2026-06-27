@@ -7,7 +7,7 @@ import (
     "github.com/golang-jwt/jwt/v5"
     "github.com/google/uuid"
     "golang.org/x/crypto/bcrypt"
-    "github.com/kuropanel/backend/internal/database"
+    "github.com/yankuro12/kuropanel/backend/internal/database"
 )
 
 type User struct {

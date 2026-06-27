@@ -8,12 +8,13 @@ import (
     "github.com/gofiber/fiber/v2/middleware/logger"
     "github.com/gofiber/fiber/v2/middleware/rate"
     "github.com/gofiber/websocket/v2"
-    "github.com/kuropanel/kuropanel/internal/auth"
-    "github.com/kuropanel/kuropanel/internal/nodes"
-    "github.com/kuropanel/kuropanel/internal/tasks"
-    "github.com/kuropanel/kuropanel/internal/files"
-    "github.com/kuropanel/kuropanel/internal/websocket"
-    "github.com/kuropanel/kuropanel/internal/database"
+    "github.com/yankuro12/kuropanel/backend/internal/plugins"
+    "github.com/yankuro12/kuropanel/internal/auth"
+    "github.com/yankuro12/kuropanel/internal/nodes"
+    "github.com/yankuro12/kuropanel/internal/tasks"
+    "github.com/yankuro12/kuropanel/internal/files"
+    "github.com/yankuro12/kuropanel/internal/websocket"
+    "github.com/yankuro12/kuropanel/internal/database"
 )
 
 func main() {
@@ -27,12 +28,17 @@ func main() {
         log.Fatal("Redis connection failed:", err)
     }
 
-   
+
     app := fiber.New(fiber.Config{
         Prefork: true,
         ServerHeader: "KuroPanel",
         AppName: "KuroPanel v1.0.0",
     })
+    
+    pluginManager := plugins.NewManager(app, db)
+    if err := pluginManager.LoadAll(); err != nil {
+        log.Printf("Failed to load plugins: %v", err)
+    }
 
     app.Use(logger.New())
     app.Use(cors.New(cors.Config{
@@ -59,6 +65,7 @@ func main() {
     tasks.SetupRoutes(api, db, redis)
     files.SetupRoutes(api, db, redis)
     app.Register(admin.SetupRoutes)
+    plugins.SetupRoutes(app, pluginManager)
 
     app.Use("/ws", websocket.New(websocket.Config{
         HandshakeTimeout: 10 * time.Second,

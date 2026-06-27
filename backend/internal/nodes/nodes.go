@@ -5,8 +5,8 @@ import (
     "encoding/json"
     "github.com/gofiber/fiber/v2"
     "github.com/google/uuid"
-    "github.com/kuropanel/backend/internal/database"
-    "github.com/kuropanel/backend/internal/middleware"
+    "github.com/yankuro12/kuropanel/backend/internal/database"
+    "github.com/yankuro12/kuropanel/backend/internal/middleware"
 )
 
 type Node struct {

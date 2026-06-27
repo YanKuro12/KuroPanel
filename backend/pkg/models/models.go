@@ -51,3 +51,32 @@ type FileNode struct {
     UserID    string    `json:"user_id"`
     CreatedAt time.Time `json:"created_at"`
 }
+
+type Game struct {
+    ID             string    `json:"id"`
+    Name           string    `json:"name"`
+    Type           string    `json:"type"`
+    Version        string    `json:"version"`
+    NodeID         string    `json:"node_id"`
+    Port           int       `json:"port"`
+    CPU            int       `json:"cpu"`
+    Memory         int       `json:"memory"`
+    Storage        int       `json:"storage"`
+    Status         string    `json:"status"`
+    Players        int       `json:"players"`
+    MaxPlayers     int       `json:"max_players"`
+    WorldName      string    `json:"world_name"`
+    BackupEnabled  bool      `json:"backup_enabled"`
+    BackupInterval int       `json:"backup_interval"`
+    UserID         string    `json:"user_id"`
+    CreatedAt      time.Time `json:"created_at"`
+    UpdatedAt      time.Time `json:"updated_at"`
+}
+
+type GameBackup struct {
+    ID        string    `json:"id"`
+    GameID    string    `json:"game_id"`
+    Path      string    `json:"path"`
+    Size      int       `json:"size"`
+    CreatedAt time.Time `json:"created_at"`
+}

@@ -9,9 +9,9 @@ import (
     "syscall"
     "time"
     "github.com/gorilla/websocket"
-    "github.com/kuropanel/agent/internal/monitor"
-    "github.com/kuropanel/agent/internal/executor"
-    "github.com/kuropanel/agent/internal/fileops"
+    "github.com/yankuro12/kuropanel/agent/internal/monitor"
+    "github.com/yankuro12/kuropanel/agent/internal/executor"
+    "github.com/yankuro12/kuropanel/agent/internal/fileops"
 )
 
 type Config struct {
