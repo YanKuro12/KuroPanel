@@ -235,7 +235,7 @@ Upcoming Game Support
 
 Based on industry trends and community requests, KuroPanel will support these games in the upcoming v1.1.0 / v2.0.0 update:
 
-Game Type ETA
+```Game Type ETA
 KYORA Sandbox Adventure Q3 2026
 Anno 117: Pax Romana Strategy Q4 2026
 Dune: Awakening Survival MMO Q3 2026
@@ -251,6 +251,7 @@ Cronos: The New Dawn Survival Horror Q4 2026
 Hell Is Us Action Q4 2026
 Of Ash and Steel RPG Q4 2026
 The Outer Worlds 2 RPG Q4 2026
+```
 
 Notes:
 
