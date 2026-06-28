@@ -71,12 +71,12 @@ docker-compose up -d --build
 |------|------|
 | 7 Days to Die | 26900 |
 | ARK: Survival Evolved | 7777 |
-| Arma 3 2302 |
+| Arma 3 | 2302 |
 | Counter Strike (CS:GO / CS2) | 27015 |
 | DayZ | 2302 |
 | Enshrouded | 15636 |
 | Left 4 Dead 2 | 27015 |
-| Palworld 8211 |
+| Palworld | 8211 |
 | Project Zomboid | 16261 |
 | Rust | 28015 |
 | Satisfactory | 7777 |
@@ -102,29 +102,31 @@ docker-compose up -d --build
 
 ## Standalone Games
 
-Game Port
-Among Us 22023
-Factorio 34197
-FTL 8080
-Garry's Mod 27015
-GTA (FiveM) 30120
-Kerbal Space Program 8080
-Mindustry 6567
-Rimworld 25565
-San Andreas: MP 7777
-Starmade 4242
-Terraria 7777
-Valheim 2456
-Xonotic 26000
+| Game | Port |
+|------|------|
+| Among Us | 22023 |
+| Factorio | 34197 |
+| FTL | 8080 |
+| Garry Mod | 27015 |
+| GTA (FiveM) | 30120 |
+| Kerbal Space Program | 8080 |
+| Mindustry | 6567 |
+| Rimworld | 25565 |
+| San Andreas: MP | 7777 |
+| Starmade | 4242 |
+| Terraria | 7777 |
+| Valheim | 2456 |
+| Xonotic | 26000 |
 
 ---
 
 ## Voice Servers
 
-Service Port 
-Mumble 64738
-TeamSpeak 3 9987
-Lavalink 2333
+| Service | Port |
+|---------|------|
+| Mumble | 64738 |
+| TeamSpeak 3 | 9987 |
+| Lavalink | 2333 |
 
 ---
 
@@ -197,14 +199,14 @@ PORT API port 5000
 
 Tech Stack
 
-Layer Technology
+_Layer Technology
 Backend Go (Fiber)
 Agent Go
 Frontend Next.js 14 + Tailwind CSS
 Database PostgreSQL 15
 Cache/Queue Redis 7
 Realtime WebSocket
-Deployment Docker + Traefik
+Deployment Docker + Traefik_
 
 ---
 
