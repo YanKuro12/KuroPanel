@@ -160,11 +160,11 @@ SFTP Share 22
 
 ## Programming Runtimes
 
-Runtime Port
-Node.js -
-Python -
-Java -
-C# (.NET) -
+| Runtime | Port |
+| Node.js | - |
+| Python | - |
+| Java | - |
+| C# (.NET) | - |
 
 ---
 
@@ -176,20 +176,21 @@ Email admin@kuropanel.com
 Password admin123
 ```
 
-CHANGE PASSWORD IMMEDIATELY AFTER FIRST LOGIN
+### CHANGE PASSWORD IMMEDIATELY AFTER FIRST LOGIN
 
 
 ---
 
 Environment Variables
 
-Variable Description Default
+```Variable Description Default
 DB_PASSWORD PostgreSQL password (required)
 REDIS_PASSWORD Redis password (required)
 JWT_SECRET JWT signing secret (required)
 APP_KEY Application encryption key (required)
 NODE_ENV Environment mode production
 PORT API port 5000
+```
 
 ---
 
