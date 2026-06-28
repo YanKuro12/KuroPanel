@@ -161,6 +161,7 @@ SFTP Share 22
 ## Programming Runtimes
 
 | Runtime | Port |
+|---------|------|
 | Node.js | - |
 | Python | - |
 | Java | - |
@@ -181,7 +182,7 @@ Password admin123
 
 ---
 
-Environment Variables
+## Environment Variables
 
 ```Variable Description Default
 DB_PASSWORD PostgreSQL password (required)
