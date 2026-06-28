@@ -265,18 +265,25 @@ Want a game added? Open an issue at https://github.com/YanKuro12/kuropanel/issue
 
 Roadmap
 
-v1.0.0 (Current) ✅
+v1.0.0 (Current)
 
 · Core features complete
 · Game server management
 · File manager
 · User management
 
-v2.0.0 (Upcoming)
+v2.0.0 (Current)
 
 · Plugin System
-· Multi-language (i18n)
+· Multi-language
 · Custom themes
-· Mobile app (Flutter)
 · Advanced analytics
-· Marketplace plugins
+
+v3.0.0 (ComingSoon)
+
+- Plugin Marketplace
+- Web Terminal Update
+- Webhook System
+- Api Update
+- Security Update
+- Visual Ui Update
